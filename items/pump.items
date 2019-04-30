@@ -1,0 +1,67 @@
+/*
+Switch Pump_1 "Помпа (П1)" <water> (gHall) {mqtt="
+    >[mysensors:/socket-8780089/cmd/power:command:ON:1],
+    >[mysensors:/socket-8780089/cmd/power:command:OFF:0],
+    <[mysensors:/socket-8780089/state/power:state:default]", autoupdate="false"}
+*/
+
+String Pump_Status "Состояние [%s]" <clock> 	{mqtt="<[mysensors:/octopus-44528/state/uptime:state:default]"}
+
+
+Number Pump_Cmd "" <water> (gHall) {mqtt="
+    >[mysensors:/octopus-44528/cmd/stop:command:0:1],
+    >[mysensors:/octopus-44528/cmd/pump:command:1:1,600],
+    >[mysensors:/octopus-44528/cmd/pump:command:2:2,600],
+    >[mysensors:/octopus-44528/cmd/pump:command:3:3,600],
+    >[mysensors:/octopus-44528/cmd/pump:command:4:4,600],
+    >[mysensors:/octopus-44528/cmd/pump:command:5:5,600],
+    <[mysensors:/octopus-44528/state/status:state:default]", autoupdate="false"}
+
+Number Pump_Manual "" <water> (gHall)
+
+
+Switch Pump_1 "Помпа 1 (П1)" <water> (gHall) {mqtt="
+    >[mysensors:/octopus-44528/cmd/pump:command:ON:1,600],
+    >[mysensors:/octopus-44528/cmd/stop:command:OFF:0],
+    <[mysensors:/octopus-44528/state/run:state:default]", autoupdate="false"}
+
+Switch Pump_2 "Помпа 2 (П2)" <water> (gHall) {mqtt="
+    >[mysensors:/octopus-44528/cmd/pump:command:ON:2,600],
+    >[mysensors:/octopus-44528/cmd/stop:command:OFF:0],
+    <[mysensors:/octopus-44528/state/run:state:default]", autoupdate="false"}
+    
+Switch Pump_3 "Помпа 3 (П3)" <water> (gHall) {mqtt="
+    >[mysensors:/octopus-44528/cmd/pump:command:ON:3,600],
+    >[mysensors:/octopus-44528/cmd/stop:command:OFF:0],
+    <[mysensors:/octopus-44528/state/run:state:default]", autoupdate="false"}
+
+Switch Pump_4 "Помпа 4 (П3)" <water> (gHall) {mqtt="
+    >[mysensors:/octopus-44528/cmd/pump:command:ON:4,600],
+    >[mysensors:/octopus-44528/cmd/stop:command:OFF:0],
+    <[mysensors:/octopus-44528/state/run:state:default]", autoupdate="false"}
+
+Switch Pump_5 "Помпа 5 (П3)" <water> (gHall) {mqtt="
+    >[mysensors:/octopus-44528/cmd/pump:command:ON:5,600],
+    >[mysensors:/octopus-44528/cmd/stop:command:OFF:0],
+    <[mysensors:/octopus-44528/state/run:state:default]", autoupdate="false"}
+
+DateTime Pump_LastStarted "Последний автозапуск [%1$td.%1$tm.%1$tY %1$tT]" <time> (gStates)
+
+Number Pump_StartHour "" (gParams, gHall)
+Number Pump_StartMinute "" (gParams, gHall)
+Number Pump_RemainTime "До след. включения [%s]" (gHall)
+
+Number Duration_Pump_1 "" (gParams, gHall)
+DateTime Timestamp_Pump_1 "Последний запуск П1 [%1$td.%1$tm.%1$tY %1$tT]" <time> (gStates)
+
+Number Duration_Pump_2 "" (gParams, gHall)
+DateTime Timestamp_Pump_2 "Последний запуск П2 [%1$td.%1$tm.%1$tY %1$tT]" <time> (gStates)
+
+Number Duration_Pump_3 "" (gParams, gHall)
+DateTime Timestamp_Pump_3 "Последний запуск П3 [%1$td.%1$tm.%1$tY %1$tT]" <time> (gStates)
+
+Number Duration_Pump_4 "" (gParams, gHall)
+DateTime Timestamp_Pump_4 "Последний запуск П4 [%1$td.%1$tm.%1$tY %1$tT]" <time> (gStates)
+
+Number Duration_Pump_5 "" (gParams, gHall)
+DateTime Timestamp_Pump_5 "Последний запуск П5 [%1$td.%1$tm.%1$tY %1$tT]" <time> (gStates)

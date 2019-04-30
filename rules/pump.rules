@@ -1,27 +1,79 @@
-rule "Pump all"
+var Number mul = 1
+
+
+rule "Pump all (manual)"
+	when
+		Item Pump_Manual changed to 1
+	then
+		logInfo("INFO", "Pump All!")
+
+		//pump 1
+		Pump_1.sendCommand(ON)
+		Thread::sleep(((Duration_Pump_1.state as DecimalType).floatValue * 1000 * mul).intValue)
+		Pump_1.sendCommand(OFF)
+
+		//pump 2
+		Pump_2.sendCommand(ON)
+		Thread::sleep(((Duration_Pump_2.state as DecimalType).floatValue * 1000 * mul).intValue)
+		Pump_2.sendCommand(OFF)
+
+		//pump 3
+		Pump_3.sendCommand(ON)
+		Thread::sleep(((Duration_Pump_3.state as DecimalType).floatValue * 1000 * mul).intValue)
+		Pump_3.sendCommand(OFF)
+
+		//pump 4
+		Pump_4.sendCommand(ON)
+		Thread::sleep(((Duration_Pump_4.state as DecimalType).floatValue * 1000 * mul).intValue)
+		Pump_4.sendCommand(OFF)
+
+		//pump 5
+		Pump_5.sendCommand(ON)
+		Thread::sleep(((Duration_Pump_5.state as DecimalType).floatValue * 1000 * mul).intValue)
+		Pump_5.sendCommand(OFF)
+
+		Pump_Manual.sendCommand(0)
+		logInfo("INFO", "Pumping finished")
+end
+
+
+rule "Pump all (auto)"
 	when
 		Time cron "0 * * ? * *"
 	then
-		var Number hour = (WateringHour.state as DecimalType).intValue
-		var Number minute = (WateringMinute.state as DecimalType).intValue
+		var Number hour = (Pump_StartHour.state as DecimalType).intValue
+		var Number minute = (Pump_StartMinute.state as DecimalType).intValue
+
+		logInfo("INFO", "Pump All!")
 
 		if (now.getHourOfDay == hour && now.getMinuteOfHour == minute) {
 			logInfo( "INFO", "It's time to pump" )
 		
 			//pump 1
 			Pump_1.sendCommand(ON)
-			Thread::sleep(((Duration_Pump_1.state as DecimalType).floatValue * 1000).intValue)
+			Thread::sleep(((Duration_Pump_1.state as DecimalType).floatValue * 1000 * mul).intValue)
             Pump_1.sendCommand(OFF)
 
 			//pump 2
 			Pump_2.sendCommand(ON)
-			Thread::sleep(((Duration_Pump_2.state as DecimalType).floatValue * 1000).intValue)
+			Thread::sleep(((Duration_Pump_2.state as DecimalType).floatValue * 1000 * mul).intValue)
             Pump_2.sendCommand(OFF)
 			
 			//pump 3
 			Pump_3.sendCommand(ON)
-			Thread::sleep(((Duration_Pump_3.state as DecimalType).floatValue * 1000).intValue)
+			Thread::sleep(((Duration_Pump_3.state as DecimalType).floatValue * 1000 * mul).intValue)
             Pump_3.sendCommand(OFF)
+
+			//pump 4
+			Pump_4.sendCommand(ON)
+			Thread::sleep(((Duration_Pump_4.state as DecimalType).floatValue * 1000 * mul).intValue)
+            Pump_4.sendCommand(OFF)
+
+			//pump 5
+			Pump_5.sendCommand(ON)
+			Thread::sleep(((Duration_Pump_5.state as DecimalType).floatValue * 1000 * mul).intValue)
+            Pump_5.sendCommand(OFF)
+
             logInfo( "INFO", "Pumping finished" )
 		}
 end
@@ -29,47 +81,89 @@ end
 
 rule "Pump_1 timestamp"
 when
-    Item Pump_1 changed to ON
+    Item Pump_Cmd changed to 1
 then
     Timestamp_Pump_1.postUpdate(new DateTimeType())
 end
 
 rule "Pump_1 off"
 when
-    Item Pump_1 changed to ON
+    Item Pump_Cmd changed to 1
 then
-	Thread::sleep(((Duration_Pump_1.state as DecimalType).floatValue * 1000).intValue + 1000)
-	Pump_1.sendCommand(OFF)
+	Thread::sleep(((Duration_Pump_1.state as DecimalType).floatValue * 1000 * mul).intValue + 1000)
+	if (Pump_Cmd.state == 1) {
+		Pump_Cmd.sendCommand(0)
+	}
 end
 
 
 rule "Pump_2 timestamp"
 when
-    Item Pump_2 changed to ON
+    Item Pump_Cmd changed to 2
 then
     Timestamp_Pump_2.postUpdate(new DateTimeType())
 end
 
 rule "Pump_2 off"
 when
-    Item Pump_2 changed to ON
+    Item Pump_Cmd changed to 2
 then
-	Thread::sleep(((Duration_Pump_2.state as DecimalType).floatValue * 1000).intValue + 1000)
-	Pump_2.sendCommand(OFF)
+	Thread::sleep(((Duration_Pump_2.state as DecimalType).floatValue * 1000 * mul).intValue + 1000)
+	if (Pump_Cmd.state == 2) {
+		Pump_Cmd.sendCommand(0)
+	}
 end
 
 
 rule "Pump_3 timestamp"
 when
-    Item Pump_3 changed to ON
+    Item Pump_Cmd changed to 3
 then
     Timestamp_Pump_3.postUpdate(new DateTimeType())
 end
 
 rule "Pump_3 off"
 when
-    Item Pump_3 changed to ON
+    Item Pump_Cmd changed to 3
 then
-	Thread::sleep(((Duration_Pump_3.state as DecimalType).floatValue * 1000).intValue + 1000)
-	Pump_3.sendCommand(OFF)
+	Thread::sleep(((Duration_Pump_3.state as DecimalType).floatValue * 1000 * mul).intValue + 1000)
+	if (Pump_Cmd.state == 3) {
+		Pump_Cmd.sendCommand(0)
+	}
+end
+
+
+rule "Pump_4 timestamp"
+when
+    Item Pump_Cmd changed to 4
+then
+    Timestamp_Pump_4.postUpdate(new DateTimeType())
+end
+
+rule "Pump_4 off"
+when
+    Item Pump_Cmd changed to 4
+then
+	Thread::sleep(((Duration_Pump_4.state as DecimalType).floatValue * 1000 * mul).intValue + 1000)
+	if (Pump_Cmd.state == 4) {
+		Pump_Cmd.sendCommand(0)
+	}
+end
+
+
+rule "Pump_5 timestamp"
+when
+    Item Pump_Cmd changed to 5
+then
+    Timestamp_Pump_5.postUpdate(new DateTimeType())
+end
+
+rule "Pump_5 off"
+when
+    Item Pump_Cmd changed to 5
+then
+	Thread::sleep(((Duration_Pump_5.state as DecimalType).floatValue * 1000 * mul).intValue + 1000)
+	if (Pump_Cmd.state == 5) {
+		Pump_Cmd.sendCommand(0)
+	}
 end

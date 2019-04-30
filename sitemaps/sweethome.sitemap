@@ -88,38 +88,50 @@ sitemap sweethome label="Home" {
 			}
 		}
 		Text label="Полив" icon="lawnmower" {
-			Frame  {
-				Switch item=Water mappings=[0="OFF", 1="Г1", 2="Г2", 3="Г3", 4="Г4", 5="Г5"]
-				Text item=LastWatered
-				Switch item=Pump_1 icon="water"
-				Text item=Timestamp_Pump_1
-				Switch item=Pump_2 icon="water"
-				Text item=Timestamp_Pump_2
-				Switch item=Pump_3 icon="water"
-				Text item=Timestamp_Pump_3
-			}
-			Frame label="Параметры" {
-				Setpoint item=Duration_1 label="Г1 продолж. полива [%d cек.]" minValue=10 maxValue=120 step=10
+			Frame label="Система 1" {
+				Switch item=Water_Cmd mappings=[0="OFF", 1="Г1", 2="Г2", 3="Г3", 4="Г4", 5="Г5"]
+				Text item=Water_LastStarted
+
+				Setpoint item=Duration_1 label="Продолжительность Г1 [%d мин.]" minValue=1 maxValue=10 step=1
 				Text item=Timestamp_1
-				Setpoint item=Duration_2 label="Г2 продолж. полива [%d cек.]" minValue=10 maxValue=120 step=10
+				Setpoint item=Duration_2 label="Продолжительность Г2 [%d мин.]" minValue=1 maxValue=10 step=1
 				Text item=Timestamp_2
-				Setpoint item=Duration_3 label="Г3 продолж. полива [%d cек.]" minValue=10 maxValue=120 step=10
+				Setpoint item=Duration_3 label="Продолжительность Г3 [%d мин.]" minValue=1 maxValue=10 step=1
 				Text item=Timestamp_3
-				Setpoint item=Duration_4 label="Г4 продолж. полива [%d cек.]" minValue=10 maxValue=120 step=10
+				Setpoint item=Duration_4 label="Продолжительность Г4 [%d мин.]" minValue=1 maxValue=10 step=1
 				Text item=Timestamp_4
 
-				Setpoint item=Duration_Pump_1 label="П1 продолж. полива [%d cек.]" minValue=10 maxValue=120 step=10
+				Setpoint item=Water_StartHour label="Время запуска (ЧЧ) [%d]" minValue=0 maxValue=23 step=1
+				Setpoint item=Water_StartMinute label="Время запуска (ММ) [%d]" minValue=0 maxValue=50 step=10
+
+				Text item=Water_NextRun
+				Text item=Water_RemainTime
+			}
+			Frame label="Система 2" {
+				Switch item=Pump_Cmd mappings=[0="OFF", 1="П1", 2="П2", 3="П3", 4="П4", 5="П5"]
+				Switch item=Pump_Manual mappings=[0="Авто", 1="Ручной"]
+
+				Setpoint item=Duration_Pump_1 label="Продолжительность П1 [%d мин.]" minValue=1 maxValue=10 step=1
 				Text item=Timestamp_Pump_1
 
-				Setpoint item=Duration_Pump_2 label="П2 продолж. полива [%d cек.]" minValue=10 maxValue=120 step=10
+				Setpoint item=Duration_Pump_2 label="Продолжительность П2 [%d мин.]" minValue=1 maxValue=10 step=1
 				Text item=Timestamp_Pump_2
 
-				Setpoint item=Duration_Pump_3 label="П3 продолж. полива [%d cек.]" minValue=10 maxValue=120 step=10
+				Setpoint item=Duration_Pump_3 label="Продолжительность П3 [%d мин.]" minValue=1 maxValue=10 step=1
 				Text item=Timestamp_Pump_3
 
-				Setpoint item=WateringHour label="Время запуска (ЧЧ) [%d]" minValue=0 maxValue=23 step=1
-				Setpoint item=WateringMinute label="Время запуска (ММ) [%d]" minValue=0 maxValue=50 step=10
-				Text item=WaterRemainTime
+				Setpoint item=Duration_Pump_4 label="Продолжительность П4 [%d мин.]" minValue=1 maxValue=10 step=1
+				Text item=Timestamp_Pump_4
+
+				Setpoint item=Duration_Pump_5 label="Продолжительность П5 [%d мин.]" minValue=1 maxValue=10 step=1
+				Text item=Timestamp_Pump_5
+
+				Setpoint item=Pump_StartHour label="Время запуска (ЧЧ) [%d]" minValue=0 maxValue=23 step=1
+				Setpoint item=Pump_StartMinute label="Время запуска (ММ) [%d]" minValue=0 maxValue=50 step=10
+				
+				Text item=Pump_RemainTime
+
+				Text item=Pump_Status
 			}
 		}
 		Text label="Графики" icon="line" {
